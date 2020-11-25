@@ -19,8 +19,8 @@ DIGITS_LOOKUP = {
 }
 
 
-#camera = cv2.VideoCapture('vidbar1.mp4')
-camera = cv2.VideoCapture(0)
+#camera = cv2.VideoCapture(0)
+camera = cv2.VideoCapture('vidbar1.mp4')
 
 
 
@@ -69,7 +69,6 @@ X = cv2.createTrackbar('X','marking',50,500,nothing)
 Y = cv2.createTrackbar('Y','marking' ,163,500,nothing)
 dX = cv2.createTrackbar('delta X','marking',117,500,nothing)
 dY = cv2.createTrackbar('delta Y','marking',200,500,nothing)
-
 
 
 while(1):
@@ -151,9 +150,8 @@ while(1):
 			(koorY,koorX) = roi1.shape #ngebuat kotak sakti berdasarkan koordinat angka
 			param = 20
 	
-			print("Y = ",round(koorY/16),"X = ",round(14*koorX/16)) #coba koor
+			print("Y = ",round(koorY/16),"X = ",round(koorX/2)) #coba koor
 			#satu blm di buat
-			cv2.imshow("imgkecil ",roi1)
 			
 			if roi1[round(1.2*koorY/4),round(koorX/4)] > param: #atas kiri
 				if roi1[round(2.8*koorY/4),round(koorX/4)] > param: #bawah kiri
@@ -166,7 +164,7 @@ while(1):
 						print(6)
 				else:	
 					if roi1[round(koorY/14),round(koorX/2)] > param: #tengah atas blmcek
-						if roi1[round(koorY/7),round(10*koorX/16)] > param: # kanan atas blmcek
+						if roi1[round(koorY/16),round(14*koorX/16)] > param: # kanan atas blmcek
 							print(9)
 						else :
 							print(5)
@@ -191,6 +189,5 @@ while(1):
 
 	
 	cv2.imshow("img1 ",res3)
-	#cv2.imshow("img2 ",roi1)
-	
+	cv2.imshow("img2",roi1)
 	
