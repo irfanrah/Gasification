@@ -19,7 +19,7 @@ A1 = 0x41
 A2 = 0x42
 A3 = 0x43
 A4 = 0x44
-bus = smbus2.SMBus(1)
+bus = smbus2.SMBus(1) #aaa
 
 setOfValue = []
 while True:
