@@ -1,0 +1,12 @@
+Metadata-Version: 1.1
+Name: python-firebase
+Version: 0.1.0
+Summary: Simple wrapper around Firebase's REST API
+Home-page: http://github.com/mikexstudios/python-firebase
+Author: Michael Huynh
+Author-email: mike@mikexstudios.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: License :: OSI Approved :: BSD License
