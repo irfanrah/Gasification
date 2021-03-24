@@ -1,0 +1,7 @@
+#Upload
+[1 2 3 4 ] State ON
+TX/RX 3
+click mode
+board Arduino Mega
+
+tutorial belong to : https://www.youtube.com/watch?v=i6dPyuWtdpU&t=723s

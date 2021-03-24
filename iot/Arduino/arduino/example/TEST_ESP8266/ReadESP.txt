@@ -1,0 +1,27 @@
+#Upload Code to ESP32
+klik mode every change state
+TX/RX 1
+board Lolin(WEMOS) D1 R2 Mini
+[5,6,7] State ON
+
+#Read serial monitor
+klik mode every change state
+[5,6]
+klik serial monitor and reset
+serial monitor will show this
+ESP8266 board info:
+	Chip ID: 1458415
+	Core Version: 2_7_3
+	Chip Real Size: 4194304
+	Chip Flash Size: 4194304
+	Chip Flash Speed: 40000000
+	Chip Speed: 80
+	Chip Mode: 2
+	Sketch Size: 317744
+	Sketch Free Space: 1777664
+
+..
+Connected to Pucang Anom
+IP address: 192.168.0.3
+MDNS responder started
+HTTP server started
