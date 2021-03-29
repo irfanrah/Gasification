@@ -4,7 +4,7 @@ from itertools import count
 from matplotlib.animation import FuncAnimation
 
 
-#plt.style.use('fivethrityeight')
+
 
 x_vals = []
 y_vals1 = []
@@ -33,6 +33,8 @@ def animate(i):
     plt.plot(x_vals,y_vals4,label = 'line4')
 
 
+
+ani = FuncAnimation(plt.gcf(),animate,interval=100)
 
 ani = FuncAnimation(plt.gcf(),animate,interval=100)
 

@@ -6,7 +6,8 @@ counter = 32 # Below 32 everything in ASCII is gibberish
 while True:
      ArduinoIn = str(Serial.readline()) #
      ArduinoCut = ArduinoIn[2:-5]
-     print(ArduinoCut)
+     ArduinoList = ArduinoCut.split(",")
+     print(ArduinoList)
      #print()
      time.sleep(0.5) # Delay for one tenth of a second
      if counter == 255:
