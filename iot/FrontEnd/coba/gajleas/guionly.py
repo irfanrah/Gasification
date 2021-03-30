@@ -11,15 +11,16 @@ import random
 import time
 import serial
 
-#ArduSerial = serial.Serial('/dev/ttyUSB0', 9600) 
-#client = ModbusClient(method='rtu', bytesize = 8, baudrate = 9600,port="/dev/ttyUSB0", timeout=1,stopbits = 2, parity = 'N')
+ArduSerial = serial.Serial('/dev/ttyUSB0', 9600) 
+#client = ModbusClient(method='rtu', bytesize = 8, baudrate = 9600,port="/dev/ttyUSB1", timeout=1,stopbits = 2, parity = 'N')
+count = 0
 
 def ArduRead():
-     #ArduinoIn = str(ArduSerial.readline()) 
-     ArduinoIn = "1212,31,24,12,3213"
+     ArduSerial.flushInput()
+     ArduinoIn = str(ArduSerial.readline()) 
+     #ArduinoIn = "1212,31,24,12,3213"
      ArduinoCut = ArduinoIn[2:-5]
      ArduinoList = ArduinoCut.split(",")
-     time.sleep(0.5) 
      return ArduinoList
 
 def TempRead():
@@ -27,7 +28,19 @@ def TempRead():
 	result = [30,0,30,0]
 	return result
 
-
+def CalcBH(x):
+	#return round((-1.836351 + 0.08916699*x - 0.0002387275*x**2 + 4.100465e-7*x**3),0)
+	return x%7
+	
+def CalcBP(x):
+	#return round((1.281323 + 0.02583632*x + 0.0001022204*x**2 - 1.164421e-7*x**3),0)
+	return x%3
+def CaclVG(x):
+	return round((x),0)
+		
+def CalcSF(x):
+	#return round((0.6508039 + 0.01766357*x + 0.00026934*x**2 - 5.791206e-7*x**3),0)
+	return x%5
 
 
 
@@ -55,19 +68,19 @@ Tk.Label(master=root, text="Reduction" ,font=("Helvetica", 22),bg = 'white').pla
 while(True):
     
 	Motor = ArduRead()
-	print("Test")
+	print(Motor)
 	Temperature = TempRead()
 	
-	Tk.Label(master=root, text=float(Motor[3]),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 50, y = 500)
-	Tk.Label(master=root, text=float(Motor[2]),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 250, y = 500)
-	Tk.Label(master=root, text=float(Motor[1]),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 480, y = 500)
-	Tk.Label(master=root, text=float(Motor[0]),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 700, y = 500)
+	Tk.Label(master=root, text=CalcBH(float(Motor[3])),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 50, y = 500)
+	Tk.Label(master=root, text=CalcBP(float(Motor[2])),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 250, y = 500)
+	Tk.Label(master=root, text=" 0 ",font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 480, y = 500)
+	Tk.Label(master=root, text=CalcSF(float(Motor[0])),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 700, y = 500)
 	
 	Tk.Label(master=root, text=Temperature[0],font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 80, y = 600)
 	Tk.Label(master=root, text=Temperature[1],font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 250, y = 600)
 	Tk.Label(master=root, text=Temperature[2],font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 480, y = 600)
 	Tk.Label(master=root, text=Temperature[3],font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 700, y = 600)
-	time.sleep(0.3)
-	
+	time.sleep(0.1)
+	count = count + 1
 	root.update()
 	

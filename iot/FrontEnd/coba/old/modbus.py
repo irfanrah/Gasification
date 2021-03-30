@@ -5,7 +5,7 @@ import time
 
 
 print("import ok")
-client = ModbusClient(method='rtu', bytesize = 8, baudrate = 9600,port="/dev/ttyUSB0", timeout=1,stopbits = 2, parity = 'N')
+client = ModbusClient(method='rtu', bytesize = 8, baudrate = 9600,port="/dev/ttyUSB1", timeout=1,stopbits = 2, parity = 'N')
 while(True):
     if client.connect():
         print("connected*")
