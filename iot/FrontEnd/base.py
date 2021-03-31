@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import socket
 import time
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
@@ -16,7 +18,7 @@ def start_graph():
 	
 	return 0
 
-def loop_graph(Motor,Temp,count):
+def loop_graph(Motor,Temp,count,row):
 	waktuUpdate = strftime("%H:%M:%S")
 	worksheet.write(row, col, waktuUpdate)
 
@@ -118,7 +120,8 @@ while True:
 	sock.sendto(chat , (group, port))	
 	counting = counting + 1
 	try : 
-		loop_graph(Motor,Temperature,counting)
+		loop_graph(Motor,Temperature,counting,row)
+		row = row + 1
 		time.sleep(0.9)
 	except KeyboardInterrupt:
 		workbook.close()

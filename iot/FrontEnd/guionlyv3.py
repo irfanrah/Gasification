@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import tkinter as Tk
@@ -7,6 +9,7 @@ import time
 import socket
 import struct
 import re
+import random
 
 ##mungkin delaynya diubah lagi karna sebelum write excel 0.5 sekarang 0.9	
 
@@ -49,17 +52,16 @@ def my_mainloop():
 	Tk.Label(master=root, text=Temperature[1],font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 250, y = 600)
 	Tk.Label(master=root, text=Temperature[2],font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 480, y = 600)
 	Tk.Label(master=root, text=Temperature[3],font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 700, y = 600)
-	time.sleep(0.1)
 	
-	root.after(100, my_mainloop)
-
+	root.after(300, my_mainloop)
+	
 
 
 root = Tk.Tk()
 root.title("Gasification GUI")
 root.geometry("1200x1000")
 root.configure(bg = 'white')
-root.after(100, my_mainloop)
+root.after(300, my_mainloop)
 
 Tk.Label(master=root, text="Blower Hisap" ,font=("Helvetica", 22),bg = 'white').place(x = 20, y = 460)
 Tk.Label(master=root, text="Blower Primer" ,font=("Helvetica", 22),bg = 'white').place(x = 230, y = 460)
