@@ -35,31 +35,30 @@ def loop_graph(Motor,Temp,count,row):
 	worksheet.write(row, col + 11, count)
 	
 def ArduRead():
-     #ArduSerial.flushInput()
-     #ArduinoIn = str(ArduSerial.readline()) 
-     ArduinoIn = "1212,31,24,12,3213"
+     ArduSerial.flushInput()
+     ArduinoIn = str(ArduSerial.readline()) 
+     #ArduinoIn = "1212,31,24,12,3213"
      ArduinoCut = ArduinoIn[2:-5]
      ArduinoList = ArduinoCut.split(",")
      return ArduinoList
 
 def TempRead():
-	#result = client.read_input_registers(1000, 4, unit = 33)
-	result = [30,0,30,0]
-	return result
+	result = client.read_input_registers(1000, 4, unit = 33)
+	return result.registers
 
 def CalcBH(x):
-	#return round((-1.836351 + 0.08916699*x - 0.0002387275*x**2 + 4.100465e-7*x**3),0)
-	return x%7
+	return round((-1.836351 + 0.08916699*x - 0.0002387275*x**2 + 4.100465e-7*x**3),0)
+	#return x%7
 	
 def CalcBP(x):
-	#return round((1.281323 + 0.02583632*x + 0.0001022204*x**2 - 1.164421e-7*x**3),0)
-	return x%3
-def CaclVG(x):
-	return round((x),0)
+	return round((1.281323 + 0.02583632*x + 0.0001022204*x**2 - 1.164421e-7*x**3),0)
+	#return x%3
+def CalcVG(x):
+	return round((4.226244 - 0.08308588*x + 0.001372598*x**2 - 0.000004427548*x**3),0)
 		
 def CalcSF(x):
-	#return round((0.6508039 + 0.01766357*x + 0.00026934*x**2 - 5.791206e-7*x**3),0)
-	return x
+	return round((0.6508039 + 0.01766357*x + 0.00026934*x**2 - 5.791206e-7*x**3),0)
+	#return x
 
 group = '224.1.1.1'
 port = 5004
@@ -74,16 +73,16 @@ sock.setsockopt(socket.IPPROTO_IP,
                 socket.IP_MULTICAST_TTL,
                 ttl)
                 
-#ArduSerial = serial.Serial('/dev/ttyUSB0', 9600) 
-#client = ModbusClient(method='rtu', bytesize = 8, baudrate = 9600,port="/dev/ttyUSB1", timeout=1,stopbits = 2, parity = 'N')
+ArduSerial = serial.Serial('/dev/ttyUSB0', 9600) 
+client = ModbusClient(method='rtu', bytesize = 8, baudrate = 9600,port="/dev/ttyUSB1", timeout=1,stopbits = 2, parity = 'N')
 
 
-#if client.connect():
-        #print("modbus connected*")
+if client.connect():
+        print("modbus connected*")
      
 
 try :
-		os.mkdir("Data")
+	os.mkdir("Data")
 except OSError:
 	print("Folder Created")
 
@@ -113,8 +112,14 @@ col = 2
 
 while True:
 	Motor = ArduRead()
+	MotorConv = []
 	Temperature = TempRead()
-	Datas = str(Motor) + "," + str(Temperature) + "," + str(counting)
+	#print(float(Motor[0]))
+	MotorConv.append(CalcSF(float(Motor[0])))
+	MotorConv.append(CalcVG(float(Motor[1])))
+	MotorConv.append(CalcBP(float(Motor[2])))
+	MotorConv.append(CalcBH(float(Motor[3])))
+	Datas = str(MotorConv) + "," + str(Temperature) + "," + str(counting)
 	print(Datas)
 	chat = bytes(Datas, "utf-8")
 	sock.sendto(chat , (group, port))	

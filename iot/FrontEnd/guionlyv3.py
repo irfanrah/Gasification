@@ -32,7 +32,7 @@ sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 def decoding():
     msg = sock.recv(64)
     msgd = msg.decode("utf-8")
-    digilist =  re.findall('\d+', msgd )
+    digilist =  re.findall(r'[\d\.\d]+', msgd )
     Motor = digilist[0:4]
     Temperature = digilist[4:8]
     count = digilist[8]
@@ -42,16 +42,16 @@ def decoding():
 	
 
 def my_mainloop():
-	Motor, Temperature,count = decoding()
-	Tk.Label(master=root, text=Motor[3],font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 50, y = 500)
-	Tk.Label(master=root, text=Motor[2],font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 250, y = 500)
-	Tk.Label(master=root, text=count,font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 480, y = 500)
-	Tk.Label(master=root, text=Motor[0],font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 700, y = 500)
+	Motor, Temperature, count = decoding()
+	Tk.Label(master=root, text=float(Motor[3]),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 50, y = 500)
+	Tk.Label(master=root, text=float(Motor[2]),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 250, y = 500)
+	Tk.Label(master=root, text=float(Motor[1]),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 480, y = 500)
+	Tk.Label(master=root, text=float(Motor[0]),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 700, y = 500)
 
-	Tk.Label(master=root, text=Temperature[0],font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 80, y = 600)
-	Tk.Label(master=root, text=Temperature[1],font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 250, y = 600)
-	Tk.Label(master=root, text=Temperature[2],font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 480, y = 600)
-	Tk.Label(master=root, text=Temperature[3],font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 700, y = 600)
+	Tk.Label(master=root, text=float(Temperature[0]),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 80, y = 600)
+	Tk.Label(master=root, text=float(Temperature[1]),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 250, y = 600)
+	Tk.Label(master=root, text=float(Temperature[2]),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 480, y = 600)
+	Tk.Label(master=root, text=float(Temperature[3]),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 700, y = 600)
 	
 	root.after(300, my_mainloop)
 	
