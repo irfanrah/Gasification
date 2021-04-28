@@ -33,10 +33,6 @@ def decoding():
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin = firebase_admin.initialize_app(cred, {'databaseURL': 'https://communicationdb-edd6e-default-rtdb.firebaseio.com/'})
 
-BH = db.reference( "Gasifier/BH" )
-BP = db.reference( "Gasifier/BP" )
-VG = db.reference( "Gasifier/VG" )
-SF = db.reference( "Gasifier/SF" )
 
 Temp1 = db.reference( "Gasifier/Drying" )
 Temp2 = db.reference( "Gasifier/Pyrolisis" )
@@ -45,24 +41,15 @@ Temp4 = db.reference( "Gasifier/Reduction" )
 
 cnt = 0
 
-
 while (True):
     Motor, Temperature,count = decoding()
-
     
-
-    if cnt == 5:
-        BH.set(Motor[3])
-        BP.set(Motor[2])
-        VG.set(Motor[1])
-        SF.set(Motor[0])
-        
+    if cnt ==  5:
         Temp1.set(Temperature[0])
         Temp2.set(Temperature[1])
         Temp3.set(Temperature[2])
         Temp4.set(Temperature[3])
         cnt = 0
-
+        
     print(count)
     cnt = cnt+ 1
-
