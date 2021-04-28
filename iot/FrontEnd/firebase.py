@@ -54,10 +54,10 @@ while (True):
         VG.set(Motor[1])
         SF.set(Motor[0])
         
-        #Temp1.set(Temperature[0])
-        #Temp2.set(Temperature[1])
-        #Temp3.set(Temperature[2])
-        #Temp4.set(Temperature[3])
+        Temp1.set(Temperature[0])
+        Temp2.set(Temperature[1])
+        Temp3.set(Temperature[2])
+        Temp4.set(Temperature[3])
         cnt = 0
     print(count)
     cnt = cnt+ 1

@@ -43,12 +43,9 @@ def ArduRead():
      return ArduinoList
 
 def TempRead():
-	result = client.read_input_registers(1000, 4, unit = 33)
-	return result.registers
-	
-def TempRead2():
-	result = client.read_input_registers(1000, 1, unit = 34)
-	return result.registers
+	#result = client.read_input_registers(1000, 4, unit = 33)
+	result = [30,30,30,30]
+	return result
 
 def CalcBH(x):
 	# awal return round((-1.836351 + 0.08916699*x - 0.0002387275*x**2 + 4.100465e-7*x**3),0)
@@ -79,11 +76,9 @@ sock.setsockopt(socket.IPPROTO_IP,
                 ttl)
                 
 ArduSerial = serial.Serial('/dev/ttyUSB0', 9600) 
-client = ModbusClient(method='rtu', bytesize = 8, baudrate = 9600,port="/dev/ttyUSB1", timeout=1,stopbits = 2, parity = 'N')
+#client = ModbusClient(method='rtu', bytesize = 8, baudrate = 9600,port="/dev/ttyUSB1", timeout=1,stopbits = 2, parity = 'N')
 
 
-if client.connect():
-        print("modbus connected*")
      
 
 try :
@@ -118,13 +113,7 @@ col = 2
 while True:
 	Motor = ArduRead()
 	MotorConv = []
-	Temperature = []
-	TempCH33 = TempRead()
-	TempCH34 = TempRead2()
-	Temperature.append(TempCH33[0])
-	Temperature.append(TempCH34[0])
-	Temperature.append(TempCH33[2])
-	Temperature.append(TempCH33[3])
+	Temperature = TempRead()
 	#print(float(Motor[0]))
 	MotorConv.append(CalcSF(float(Motor[0])))
 	MotorConv.append(CalcVG(float(Motor[1])))
