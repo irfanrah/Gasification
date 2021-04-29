@@ -10,6 +10,7 @@ import socket
 import struct
 import re
 import random
+from time import strftime 
 
 ##mungkin delaynya diubah lagi karna sebelum write excel 0.5 sekarang 0.9	
 
@@ -53,6 +54,8 @@ def my_mainloop():
 	Tk.Label(master=root, text=float(Temperature[2]),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 480, y = 600)
 	Tk.Label(master=root, text=float(Temperature[3]),font=("Helvetica", 20),bg = 'white', bd = '15').place(x = 700, y = 600)
 	
+	waktuUpdate = strftime("%H:%M:%S")
+	Tk.Label(master=root, text=waktuUpdate ,font=("Helvetica", 40),bg = 'white', bd = '15').place(x = 300, y = 200)
 	root.after(300, my_mainloop)
 	
 
