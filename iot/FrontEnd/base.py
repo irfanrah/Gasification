@@ -8,7 +8,7 @@ import random
 import time
 import serial
 import xlsxwriter
-from time import strftime 
+from time import strftime
 import os
 from datetime import datetime
 
@@ -23,9 +23,9 @@ def loop_graph(Motor,Temp,count,row):
 	worksheet.write(row, col, waktuUpdate)
 
 	worksheet.write(row, col + 1, Motor[3]) # BH
-	worksheet.write(row, col + 2, Motor[2]) 
+	worksheet.write(row, col + 2, Motor[2])
 	worksheet.write(row, col + 3, Motor[1])
-	worksheet.write(row, col + 4, Motor[0]) 
+	worksheet.write(row, col + 4, Motor[0])
 	
 	worksheet.write(row, col + 6, Temp[0]) # temp
 	worksheet.write(row, col + 7, Temp[0])
@@ -36,7 +36,7 @@ def loop_graph(Motor,Temp,count,row):
 	
 def ArduRead():
      ArduSerial.flushInput()
-     ArduinoIn = str(ArduSerial.readline()) 
+     ArduinoIn = str(ArduSerial.readline())
      #ArduinoIn = "1212,31,24,12,3213"
      ArduinoCut = ArduinoIn[2:-5]
      ArduinoList = ArduinoCut.split(",")
@@ -73,14 +73,14 @@ sock = socket.socket(socket.AF_INET,
 sock.setsockopt(socket.IPPROTO_IP,
                 socket.IP_MULTICAST_TTL,
                 ttl)
-                
-ArduSerial = serial.Serial('/dev/ttyUSB0', 9600) 
+
+ArduSerial = serial.Serial('/dev/ttyUSB0', 9600)
 client = ModbusClient(method='rtu', bytesize = 8, baudrate = 9600,port="/dev/ttyUSB1", timeout=1,stopbits = 2, parity = 'N')
 
 
 if client.connect():
         print("modbus connected*")
-     
+
 
 try :
 	os.mkdir("Data")
@@ -119,7 +119,7 @@ while True:
 	TempCH34 = TempRead2()
 	Temperature.append(TempCH33[0])
 	Temperature.append(TempCH34[0])
-	Temperature.append(TempCH33[2])
+	Temperature.append(TempCH33[1])
 	Temperature.append(TempCH33[3])
 	#print(float(Motor[0]))
 	MotorConv.append(CalcSF(float(Motor[0])))
@@ -131,11 +131,10 @@ while True:
 	chat = bytes(Datas, "utf-8")
 	sock.sendto(chat , (group, port))	
 	counting = counting + 1
-	try : 
+	try :
 		loop_graph(Motor,Temperature,counting,row)
 		row = row + 1
 		time.sleep(0.9)
 	except KeyboardInterrupt:
 		workbook.close()
 		break
-
