@@ -51,19 +51,15 @@ def TempRead2():
 	return result.registers
 
 def CalcBH(x):
-	# awal return round((-1.836351 + 0.08916699*x - 0.0002387275*x**2 + 4.100465e-7*x**3),0)
 	return round((0.4552306 + 0.04351914*x + 0.000005507515*x**2 + 3.982e-8*x**3),0)
 	
-def CalcBP(x):
-	return round((1.281323 + 0.02583632*x + 0.0001022204*x**2 - 1.164421e-7*x**3),0)
-	#return x%3
+def CalcBP(x): #udah 10sample
+	return round((-0.1199131 + 0.0451825*x + 0.00002533928*x**2 - 1.243547e-8*x**3),0)
 def CalcVG(x):
-	# awal return round((4.226244 - 0.08308588*x + 0.001372598*x**2 - 0.000004427548*x**3),0)
 	return round((0.4552306 + 0.04351914*x + 0.000005507515*x**2 + 3.982e-8*x**3),0)
 	
-def CalcSF(x):
-	return round((0.6508039 + 0.01766357*x + 0.00026934*x**2 - 5.791206e-7*x**3),0)
-	#return x
+def CalcSF(x): # udah1 10 sample
+	return round((-0.26705 + 0.04685134*x + 0.00003166803*x**2 - 3.975522e-8*x**3),0)
 
 group = '224.1.1.1'
 port = 5004
