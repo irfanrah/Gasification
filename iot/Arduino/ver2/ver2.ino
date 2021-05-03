@@ -1,9 +1,9 @@
 
 
-const int SF = A2;
+const int SF = A5;
 const int VG = A4;
-const int BP = A5;
-const int BH = A3;
+const int BP = A3;
+const int BH = A2;
 
 int motor[6] = {0,0,0,0,0,0};
 
@@ -14,19 +14,20 @@ float FreqBH = 0;
 
 int count = 0;
 
+
 void setup() {
  
   Serial.begin(9600);
 }
 
 void loop() {
-  FreqSF = analogRead(SF);
+  FreqSF = count;
   delay(1);
-  FreqVG = analogRead(VG);
+  FreqVG = count*2;
   delay(1);
-  FreqBP = analogRead(BP);
+  FreqBP = count;
   delay(1);
-  FreqBH = analogRead(BH);
+  FreqBH = count;
   delay(1);
 
   
@@ -39,11 +40,6 @@ void loop() {
   Serial.print(",");
   Serial.println(FreqBH);
   
-  delay(500); 
-
-  if(count == 5){
-    Serial.flush();
-  }
-
-  count = count + 1;
+  delay(500);
+  count = count + 5; 
   }
